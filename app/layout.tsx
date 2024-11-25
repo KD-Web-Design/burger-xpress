@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Nunito } from "next/font/google";
 import "./globals.css";
+
+const nunito = Nunito({ subsets: ["latin"] });
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex items-center justify-center bg-background px-12 py-6 antialiased`}
+        className={`${nunito.className} ${geistSans.variable} ${geistMono.variable} flex justify-center bg-background px-12 py-6 antialiased`}
         suppressHydrationWarning
       >
         {children}

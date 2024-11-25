@@ -6,10 +6,11 @@ export default function Home() {
   return (
     <div
       id="container"
-      className="flex h-[94vh] w-[1400px] flex-col overflow-hidden rounded-lg bg-white"
+      className="flex h-screen w-[1400px] flex-col overflow-hidden rounded-lg bg-white"
+      style={{ height: "calc(100vh - 3rem)" }}
     >
       <Navbar />
-      <div id="body" className="flex h-full">
+      <div id="body" className="flex flex-1 overflow-y-auto">
         <Aside />
         <Main />
       </div>
