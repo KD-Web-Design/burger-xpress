@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${nunito.className} ${geistSans.variable} ${geistMono.variable} flex justify-center bg-background px-12 py-6 antialiased`}
+        className={`${nunito.className} ${geistSans.variable} ${geistMono.variable} flex justify-center bg-gradient-to-t from-red-700 to-background px-12 py-6 antialiased`}
         suppressHydrationWarning
       >
         {children}

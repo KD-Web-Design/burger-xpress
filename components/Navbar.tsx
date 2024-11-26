@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Navbar() {
   return (
-    <nav className="flex w-full items-center justify-between bg-red-950 p-4 text-white shadow-lg">
+    <nav className="flex w-full items-center justify-between bg-red-950 p-4 text-white shadow-2xl">
       <Link href="#">
         <Image
           src="/img/logo.png"

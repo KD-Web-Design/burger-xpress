@@ -13,8 +13,10 @@ import { Button } from "./ui/button";
 import products from "../data/products.json";
 import { ScrollArea } from "./ui/scroll-area";
 import Loading from "@/app/loading";
+import { useCartStore } from "@/store/store";
 
 export default function Main() {
+  const { addToCart } = useCartStore();
   return (
     <Suspense fallback={<Loading />}>
       <ScrollArea className="w-full">
@@ -39,7 +41,10 @@ export default function Main() {
                 <span className="font-semibold text-foreground">
                   {product.price.toFixed(2)} €
                 </span>
-                <Button className="bg-foreground font-bold ">
+                <Button
+                  className="bg-foreground font-bold"
+                  onClick={() => addToCart(product)}
+                >
                   Add to basket
                 </Button>
               </CardFooter>
