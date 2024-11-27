@@ -22,6 +22,20 @@ type Product = {
     
   };
 
+  interface UserState {
+    username: string;
+    setUsername: (name: string) => void;
+    logout: () => void;
+  }
+  
+  export const useUserStore = create<UserState>((set) => ({
+    username: "",
+    setUsername: (name) => set({ username: name }),
+    logout: () => {
+      localStorage.removeItem('username');
+      set({ username: "" })},
+  }));
+
   export const useCartStore = create(persist<CartState>((set) => ({
     cart: [],
     totalPrice: 0,
