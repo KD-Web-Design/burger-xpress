@@ -17,9 +17,8 @@ type Product = {
     cart: CartItem[];
     totalPrice: number;
     addToCart: (product: Product) => void;
-    
     removeItem: (productId: number) => void;
-    
+    clearCart: () => void;
   };
 
   interface UserState {
@@ -78,6 +77,8 @@ type Product = {
             totalPrice: state.totalPrice - itemToRemove.product.price * itemToRemove.quantity,
           };
         }),
-  }), {
-    name: 'cart-storage',
-  }));
+
+        clearCart: () => set({ cart: [], totalPrice: 0 }),
+}), {
+  name: 'cart-storage',
+}));

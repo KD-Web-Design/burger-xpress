@@ -24,12 +24,13 @@ const Welcome = () => {
   };
 
   return (
-    <main className="relative flex h-screen w-full flex-col items-center justify-center gap-12 bg-welcome bg-cover bg-bottom before:absolute before:inset-0 before:bg-black before:opacity-70 before:content-['']">
+    <main className="relative flex h-screen min-h-screen w-full flex-col items-center justify-center gap-12 bg-welcome bg-cover bg-bottom before:absolute before:inset-0 before:bg-black before:opacity-70 before:content-['']">
       <Image
         src="/img/logo.png"
         alt="logo Burger Xpress"
         width={500}
         height={500}
+        priority
         className="z-10 cursor-pointer"
       />
       <Card className="z-10 flex h-fit flex-col items-center justify-center gap-4 bg-transparent p-8 backdrop-blur">
