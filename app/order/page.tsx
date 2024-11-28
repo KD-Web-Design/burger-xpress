@@ -4,16 +4,17 @@ import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <div
-      id="container"
-      className="flex h-screen w-[1400px] flex-col overflow-hidden rounded-lg bg-white"
-      style={{ height: "calc(100vh - 3rem)" }}
-    >
-      <Navbar />
-      <div id="body" className="flex flex-1 overflow-y-auto">
-        <Aside />
-        <Main />
+    <main className="flex h-screen w-full items-center justify-center bg-gradient-to-b from-red-700 to-background px-12 py-6">
+      <div
+        id="container"
+        className=" flex h-[calc(100vh-3rem)] w-[1400px] flex-col overflow-hidden rounded-lg border-2 border-red-950 bg-slate-50 shadow-xl"
+      >
+        <Navbar />
+        <div id="body" className="flex flex-1 overflow-y-auto">
+          <Aside />
+          <Main />
+        </div>
       </div>
-    </div>
+    </main>
   );
 }

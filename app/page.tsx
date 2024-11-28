@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/store/store";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import Image from "next/image";
 
 const Welcome = () => {
   const [username, setUsername] = useState("");
@@ -15,27 +19,41 @@ const Welcome = () => {
       localStorage.setItem("username", username);
       router.push("/order");
     } else {
-      alert("Veuillez entrer un nom valide.");
+      alert("Please provide a valid name");
     }
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-gray-100">
-      <h1 className="mb-4 text-3xl font-semibold">Bienvenue !</h1>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Entrez votre nom"
-        className="mb-4 rounded border p-2"
+    <main className="relative flex h-screen w-full flex-col items-center justify-center gap-12 bg-welcome bg-cover bg-bottom before:absolute before:inset-0 before:bg-black before:opacity-70 before:content-['']">
+      <Image
+        src="/img/logo.png"
+        alt="logo Burger Xpress"
+        width={500}
+        height={500}
+        className="z-10 cursor-pointer"
       />
-      <button
-        onClick={handleSubmit}
-        className="rounded bg-blue-500 p-2 text-white"
-      >
-        Commencer
-      </button>
-    </div>
+      <Card className="z-10 flex h-fit flex-col items-center justify-center gap-4 bg-transparent p-8 backdrop-blur">
+        <h1 className="z-10 text-3xl font-semibold text-white">
+          Welcome, please enter your name
+        </h1>
+        <div className="z-10 h-0.5 w-full bg-foreground"></div>
+
+        <Input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Enter your name"
+          className="bg-white p-2"
+        />
+        <Button
+          className="w-full bg-foreground font-bold text-white hover:bg-white hover:text-foreground"
+          onClick={handleSubmit}
+          variant="secondary"
+        >
+          Get started
+        </Button>
+      </Card>
+    </main>
   );
 };
 

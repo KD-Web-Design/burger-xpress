@@ -18,7 +18,7 @@ export default function Aside() {
     setHoveredItemId(null); // Réinitialiser l'état hoveredItemId
   };
   return (
-    <aside className="flex w-1/3 flex-col border-t border-foreground bg-white shadow-2xl">
+    <aside className="flex w-1/3 flex-col border-t border-foreground bg-slate-50 shadow-2xl">
       <div
         id="aside-top"
         className="flex justify-between bg-red-950 p-4 text-3xl font-semibold text-foreground"

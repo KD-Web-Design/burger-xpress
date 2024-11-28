@@ -51,13 +51,17 @@ export default {
   				'5': 'hsl(var(--chart-5))'
   			}
   		},
+  		backgroundImage: {
+  			welcome: 'url("/img/bg.jpg")'
+  		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		animation: {
-  			rippling: 'rippling var(--duration) ease-out'
+  			rippling: 'rippling var(--duration) ease-out',
+  			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear'
   		},
   		keyframes: {
   			rippling: {
@@ -67,6 +71,11 @@ export default {
   				'100%': {
   					transform: 'scale(2)',
   					opacity: '0'
+  				}
+  			},
+  			'border-beam': {
+  				'100%': {
+  					'offset-distance': '100%'
   				}
   			}
   		}
