@@ -13,6 +13,7 @@ export default function Navbar() {
   const username = useUserStore((state) => state.username);
   const logout = useUserStore((state) => state.logout);
   const { toast } = useToast();
+  const { isAdmin, toggleAdmin } = useUserStore();
   return (
     <nav className="flex w-full items-center justify-between bg-red-950 p-4 text-white shadow-2xl">
       <Link href="#">
@@ -29,12 +30,14 @@ export default function Navbar() {
         <Switch
           id="super-user-mode"
           onCheckedChange={(checked) => {
+            toggleAdmin();
             if (checked) {
               toast({
                 title: "Super User Mode Activated 🚀",
               });
             }
           }}
+          checked={isAdmin}
         />
       </div>
       <div id="user" className="grid grid-cols-2 items-center gap-2">

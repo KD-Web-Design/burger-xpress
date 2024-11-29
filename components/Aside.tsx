@@ -67,7 +67,7 @@ export default function Aside() {
                 >
                   <div className="relative h-16 w-1/4">
                     <Image
-                      src={item.product.image}
+                      src={item.product.imageUrl}
                       alt={item.product.title}
                       layout="fill"
                       objectFit="contain"

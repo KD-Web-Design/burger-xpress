@@ -10,16 +10,17 @@ import {
 } from "./ui/card";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import products from "../data/products.json";
 import { ScrollArea } from "./ui/scroll-area";
 import Loading from "@/app/loading";
 import { useCartStore } from "@/store/store";
+import SuperUserMode from "./SuperUserMode";
+import { products } from "@/data/products";
 
 export default function Main() {
   const { addToCart } = useCartStore();
   return (
     <Suspense fallback={<Loading />}>
-      <ScrollArea className="w-full">
+      <ScrollArea className="relative w-full">
         <main className=" grid w-full grid-cols-3 gap-8 p-12">
           {products.map((product, index) => (
             <Card key={index} className="h-fit">
@@ -29,7 +30,7 @@ export default function Main() {
               <CardContent>
                 <div className="relative h-48 w-full">
                   <Image
-                    src={product.image}
+                    src={product.imageUrl}
                     alt={product.title}
                     layout="fill"
                     objectFit="contain"
@@ -51,6 +52,7 @@ export default function Main() {
             </Card>
           ))}
         </main>
+        <SuperUserMode />
       </ScrollArea>
     </Suspense>
   );

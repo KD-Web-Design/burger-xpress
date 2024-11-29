@@ -1,12 +1,7 @@
+import { Product } from '@/data/products';
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware';
 
-type Product = {
-    id: number;
-    title: string;
-    image: string;
-    price: number;
-  };
   
   type CartItem = {
     product: Product;
@@ -25,6 +20,16 @@ type Product = {
     username: string;
     setUsername: (name: string) => void;
     logout: () => void;
+    isAdmin: boolean;
+    toggleAdmin: () => void;
+  }
+
+  interface SuperUserState {
+    isAdmin: boolean;
+    toggleAdmin: () => void;
+    products: Product[];
+    addProduct: (product: Omit<Product, "id">) => void;
+    updateProduct: (id: number, updatedProduct: Partial<Product>) => void;
   }
   
   export const useUserStore = create<UserState>((set) => ({
@@ -33,6 +38,28 @@ type Product = {
     logout: () => {
       localStorage.removeItem('username');
       set({ username: "" })},
+    isAdmin: false,
+    toggleAdmin: () => set((state) => ({ isAdmin: !state.isAdmin })),
+  }));
+
+  export const useSuperUserStore = create<SuperUserState>((set) => ({
+    isAdmin: false,
+    toggleAdmin: () => set((state) => ({ isAdmin: !state.isAdmin })),
+    products: [],
+    addProduct: (product) =>
+      set((state) => ({
+        products: [
+          ...state.products,
+          { id: Date.now(), ...product },
+        ],
+      })),
+      updateProduct: (id, updatedProduct) =>
+        set((state) => ({
+          products: state.products.map((product) =>
+            product.id === id ? { ...product, ...updatedProduct } : product
+          ),
+        }),
+      ),
   }));
 
   export const useCartStore = create(persist<CartState>((set) => ({
