@@ -1,4 +1,4 @@
-import { Product } from '@/data/products';
+import { Product, products as initialProducts } from '@/data/products';
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware';
 
@@ -45,7 +45,7 @@ import { persist } from 'zustand/middleware';
   export const useSuperUserStore = create<SuperUserState>((set) => ({
     isAdmin: false,
     toggleAdmin: () => set((state) => ({ isAdmin: !state.isAdmin })),
-    products: [],
+    products: initialProducts,
     addProduct: (product) =>
       set((state) => ({
         products: [

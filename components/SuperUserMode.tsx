@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useUserStore } from "@/store/store";
+import { useSuperUserStore, useUserStore } from "@/store/store";
 import { useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { toast } from "@/hooks/use-toast";
 
 export default function SuperUserMode() {
   const [productName, setProductName] = useState("");
@@ -21,6 +22,7 @@ export default function SuperUserMode() {
   const [productPrice, setProductPrice] = useState<number | string>("");
   const [inStock, setInStock] = useState(true);
   const { isAdmin } = useUserStore();
+  const { addProduct } = useSuperUserStore();
 
   const isValidUrl = (urlString: string) => {
     try {
@@ -32,13 +34,34 @@ export default function SuperUserMode() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({
-      name: productName,
-      image: productImage,
+    if (!productName || !productImage || !productPrice) {
+      toast({
+        title: "Error",
+        description: "❌ Please fill all fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const newProduct = {
+      title: productName,
+      imageUrl: productImage,
       price: parseFloat(productPrice as string),
       inStock,
+    };
+
+    addProduct(newProduct);
+
+    // Reset form
+    setProductName("");
+    setProductImage("");
+    setProductPrice("");
+    setInStock(true);
+
+    toast({
+      title: "Success",
+      description: "✅ Product added successfully",
     });
-    // Ajouter ici la logique pour stocker les produits
   };
 
   if (!isAdmin) return null;
@@ -46,7 +69,7 @@ export default function SuperUserMode() {
   return (
     <Tabs
       defaultValue="add"
-      className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-lg p-4 shadow-lg backdrop-blur-md transition-all duration-300 ease-in-out animate-in fade-in-0 slide-in-from-bottom-8"
+      className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-0 rounded-lg p-4 shadow-lg backdrop-blur-md"
     >
       <TabsList>
         <TabsTrigger value="add">Add a product</TabsTrigger>
@@ -106,14 +129,6 @@ export default function SuperUserMode() {
                   </SelectContent>
                 </Select>
               </div>
-              {/* <Label className="flex items-center gap-2">
-                <Input
-                  type="checkbox"
-                  checked={inStock}
-                  onChange={(e) => setInStock(e.target.checked)}
-                />
-                En stock
-              </Label> */}
               <Button type="submit">Add new product</Button>
             </form>
           </CardContent>
@@ -173,14 +188,6 @@ export default function SuperUserMode() {
                   </SelectContent>
                 </Select>
               </div>
-              {/* <Label className="flex items-center gap-2">
-                <Input
-                  type="checkbox"
-                  checked={inStock}
-                  onChange={(e) => setInStock(e.target.checked)}
-                />
-                En stock
-              </Label> */}
               <span className="text-center text-sm text-foreground">
                 Click on a product to modify.
               </span>

@@ -12,18 +12,18 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
 import Loading from "@/app/loading";
-import { useCartStore } from "@/store/store";
+import { useCartStore, useSuperUserStore } from "@/store/store";
 import SuperUserMode from "./SuperUserMode";
-import { products } from "@/data/products";
 
 export default function Main() {
   const { addToCart } = useCartStore();
+  const { products } = useSuperUserStore();
   return (
     <Suspense fallback={<Loading />}>
       <ScrollArea className="relative w-full">
         <main className=" grid w-full grid-cols-3 gap-8 p-12">
-          {products.map((product, index) => (
-            <Card key={index} className="h-fit">
+          {products.map((product) => (
+            <Card key={product.id} className="h-fit">
               <CardHeader>
                 <CardTitle className="text-xl">{product.title}</CardTitle>
               </CardHeader>
