@@ -61,9 +61,14 @@ export default {
   		},
   		animation: {
   			rippling: 'rippling var(--duration) ease-out',
-  			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear'
+  			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
+			land: 'land 0.5s ease-out forwards', 
   		},
   		keyframes: {
+			land: {
+				'0%': { transform: 'translateY(-100%)', opacity: '0' },
+				'100%': { transform: 'translateY(0)', opacity: '1' },
+			},
   			rippling: {
   				'0%': {
   					opacity: '1'
@@ -81,5 +86,5 @@ export default {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [],
 } satisfies Config;

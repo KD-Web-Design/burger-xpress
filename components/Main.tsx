@@ -52,7 +52,7 @@ export default function Main() {
               onClick={() => handleCardSelect(product)}
             >
               {product.inStock === false && (
-                <div className="absolute inset-0 z-10 flex cursor-default items-center justify-center bg-white/80">
+                <div className="absolute inset-0 z-10 flex animate-land cursor-default items-center justify-center bg-white/80">
                   <Image
                     src="/img/sold-out.png"
                     alt="Sold Out"

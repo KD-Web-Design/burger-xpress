@@ -33,7 +33,6 @@ export default function SuperUserMode() {
     setProductImage,
     setProductPrice,
     setInStock,
-    resetForm,
   } = useSuperUserStore();
 
   const [activeTab, setActiveTab] = useState("add");
@@ -55,6 +54,12 @@ export default function SuperUserMode() {
     }
   };
 
+  useEffect(() => {
+    if (activeTab === "add") {
+      setProductImage("");
+    }
+  }, [activeTab, setProductImage]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!productName || !productPrice) {
@@ -73,13 +78,26 @@ export default function SuperUserMode() {
       inStock,
     };
 
-    if (selectedCardId) {
+    if (activeTab === "update" && selectedCardId) {
       updateProduct(selectedCardId, productData);
     } else {
       addProduct(productData);
     }
-    resetForm();
-    setActiveTab("add");
+  };
+
+  const handleStockChange = (value: string) => {
+    const newInStock = value === "in-stock";
+    setInStock(newInStock);
+
+    if (selectedCardId) {
+      const productData = {
+        title: productName,
+        imageUrl: productImage || "/img/coming-soon.png",
+        price: parseFloat(productPrice as string),
+        inStock: newInStock,
+      };
+      updateProduct(selectedCardId, productData);
+    }
   };
 
   if (!isAdmin) return null;
@@ -215,7 +233,7 @@ export default function SuperUserMode() {
                       size={16}
                     />
                     <Input
-                      type="url"
+                      type="text"
                       placeholder="Image URL"
                       value={productImage}
                       onChange={(e) => setProductImage(e.target.value)}
@@ -243,9 +261,7 @@ export default function SuperUserMode() {
                       />
                       <Select
                         value={inStock ? "in-stock" : "sold-out"}
-                        onValueChange={(value) =>
-                          setInStock(value === "in-stock")
-                        }
+                        onValueChange={handleStockChange}
                       >
                         <SelectTrigger className="pl-8">
                           <SelectValue

@@ -52,54 +52,59 @@ import { persist } from 'zustand/middleware';
       set({ username: "" })},
   }));
 
-  export const useSuperUserStore = create<SuperUserState>((set) => ({
-    isAdmin: false,
-    toggleAdmin: () => set((state) => ({ isAdmin: !state.isAdmin })),
-    products: initialProducts,
-    addProduct: (product) =>
-      set((state) => ({
-        products: [
-          { id: Date.now(), ...product },
-          ...state.products,
-        ],
-      })),
-      updateProduct: (id, updatedProduct) =>
-        set((state) => ({
-          products: state.products.map((product) =>
-            product.id === id ? { ...product, ...updatedProduct } : product
-          ),
+  export const useSuperUserStore = create(
+    persist<SuperUserState>(
+      (set) => ({
+        isAdmin: false,
+        toggleAdmin: () => set((state) => ({ isAdmin: !state.isAdmin })),
+        products: initialProducts,
+        addProduct: (product) =>
+          set((state) => ({
+            products: [
+              { id: Date.now(), ...product },
+              ...state.products,
+            ],
+          })),
+        updateProduct: (id, updatedProduct) =>
+          set((state) => ({
+            products: state.products.map((product) =>
+              product.id === id ? { ...product, ...updatedProduct } : product
+            ),
+          })),
+        deleteProduct: (id) => {
+          set((state) => ({
+            products: state.products.filter((product) => product.id !== id),
+          }));
+          useCartStore.getState().removeItemFromCart(id);
+        },
+        selectedCardId: null,
+        setSelectedCard: (id) => set({ selectedCardId: id }),
+        productName: "",
+        productImage: "",
+        productPrice: "",
+        inStock: true,
+        setProductName: (name) => set({ productName: name }),
+        setProductImage: (url) => set({ productImage: url }),
+        setProductPrice: (price) => set({ productPrice: price }),
+        setInStock: (stock) => set({ inStock: stock }),
+        resetForm: () => set({
+          productName: "",
+          productImage: "",
+          productPrice: "",
+          inStock: true,
         }),
-      ),
-      deleteProduct: (id) => {
-        set((state) => ({
-          products: state.products.filter((product) => product.id !== id),
-        }));
-        useCartStore.getState().removeItemFromCart(id);
-
-      },
-      selectedCardId: null,
-      setSelectedCard: (id) => set({ selectedCardId: id }),
-      productName: "",
-      productImage: "",
-      productPrice: "",
-      inStock: true,
-      setProductName: (name) => set({ productName: name }),
-      setProductImage: (url) => set({ productImage: url }),
-      setProductPrice: (price) => set({ productPrice: Number(price).toFixed(2) }),
-      setInStock: (stock) => set({ inStock: stock }),
-      resetForm: () => set({ 
-        productName: "", 
-        productImage: "", 
-        productPrice: "", 
-        inStock: true
+        prefillForm: (product) => set({
+          productName: product.title,
+          productImage: product.imageUrl,
+          productPrice: product.price.toString(),
+          inStock: product.inStock,
+        }),
       }),
-      prefillForm: (product) => set({
-        productName: product.title,
-        productImage: product.imageUrl,
-        productPrice: product.price.toFixed(2),
-        inStock: product.inStock,
-      }),
-  }));
+      {
+        name: 'super-user-store',
+      }
+    )
+  );
 
   export const useCartStore = create(persist<CartState>((set) => ({
     cart: [],
