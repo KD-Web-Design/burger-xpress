@@ -10,12 +10,12 @@ import { motion } from "framer-motion";
 import { ScrollArea } from "./ui/scroll-area";
 
 export default function Aside() {
-  const { cart, totalPrice, removeItem, clearCart } = useCartStore();
+  const { cart, totalPrice, removeItemFromCart, clearCart } = useCartStore();
   const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
   const formattedTotalPrice = totalPrice.toFixed(2);
 
   const handleRemoveItem = (productId: number) => {
-    removeItem(productId);
+    removeItemFromCart(productId);
     setHoveredItemId(null); // Réinitialiser l'état hoveredItemId
   };
   return (

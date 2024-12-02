@@ -12,7 +12,7 @@ import { persist } from 'zustand/middleware';
     cart: CartItem[];
     totalPrice: number;
     addToCart: (product: Product) => void;
-    removeItem: (productId: number) => void;
+    removeItemFromCart: (productId: number) => void;
     clearCart: () => void;
   };
 
@@ -59,8 +59,8 @@ import { persist } from 'zustand/middleware';
     addProduct: (product) =>
       set((state) => ({
         products: [
-          ...state.products,
           { id: Date.now(), ...product },
+          ...state.products,
         ],
       })),
       updateProduct: (id, updatedProduct) =>
@@ -70,10 +70,13 @@ import { persist } from 'zustand/middleware';
           ),
         }),
       ),
-      deleteProduct: (id) =>
+      deleteProduct: (id) => {
         set((state) => ({
           products: state.products.filter((product) => product.id !== id),
-        })),
+        }));
+        useCartStore.getState().removeItemFromCart(id);
+
+      },
       selectedCardId: null,
       setSelectedCard: (id) => set({ selectedCardId: id }),
       productName: "",
@@ -127,7 +130,7 @@ import { persist } from 'zustand/middleware';
         };
       }), 
 
-      removeItem: (productId) =>
+      removeItemFromCart: (productId) =>
         set((state) => {
           const itemToRemove = state.cart.find((item) => item.product.id === productId);
     

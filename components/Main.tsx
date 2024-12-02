@@ -42,7 +42,7 @@ export default function Main() {
           {products.map((product) => (
             <Card
               key={product.id}
-              className={`relative h-fit cursor-pointer transition-all duration-300 ease-in-out
+              className={`relative h-fit cursor-pointer overflow-hidden transition-all duration-300 ease-in-out
               ${isAdmin ? "hover:scale-105" : ""}
               ${
                 isAdmin && selectedCardId === product.id
@@ -51,6 +51,17 @@ export default function Main() {
               }`}
               onClick={() => handleCardSelect(product)}
             >
+              {product.inStock === false && (
+                <div className="absolute inset-0 z-10 flex cursor-default items-center justify-center bg-white/80">
+                  <Image
+                    src="/img/sold-out.png"
+                    alt="Sold Out"
+                    width={200}
+                    height={200}
+                    className="object-contain"
+                  />
+                </div>
+              )}
               {isAdmin && (
                 <Button
                   variant="destructive"

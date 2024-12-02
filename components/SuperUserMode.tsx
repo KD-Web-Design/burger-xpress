@@ -16,6 +16,7 @@ import {
 import { toast } from "@/hooks/use-toast";
 import Image from "next/image";
 import { EuroIcon, ForkKnife, ImageIcon, PackageIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function SuperUserMode() {
   const {
@@ -35,9 +36,16 @@ export default function SuperUserMode() {
     resetForm,
   } = useSuperUserStore();
 
+  const [activeTab, setActiveTab] = useState("add");
+
   const selectedProduct = products.find(
     (product) => product.id === selectedCardId
   );
+  useEffect(() => {
+    if (selectedCardId && selectedProduct) {
+      setActiveTab("update");
+    }
+  }, [selectedCardId, selectedProduct]);
 
   const isValidUrl = (urlString: string) => {
     try {
@@ -49,10 +57,10 @@ export default function SuperUserMode() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!productName || !productImage || !productPrice) {
+    if (!productName || !productPrice) {
       toast({
         title: "Error",
-        description: "❌ Please fill all fields",
+        description: "❌ Please fill at least name and price fields",
         variant: "destructive",
       });
       return;
@@ -60,7 +68,7 @@ export default function SuperUserMode() {
 
     const productData = {
       title: productName,
-      imageUrl: productImage,
+      imageUrl: productImage || "/img/coming-soon.png",
       price: parseFloat(productPrice as string),
       inStock,
     };
@@ -71,13 +79,16 @@ export default function SuperUserMode() {
       addProduct(productData);
     }
     resetForm();
+    setActiveTab("add");
   };
 
   if (!isAdmin) return null;
 
   return (
+    // ADD
     <Tabs
-      defaultValue="add"
+      value={activeTab}
+      onValueChange={setActiveTab}
       className="absolute bottom-0 left-1/2 z-20 -translate-x-1/2 translate-y-0 rounded-lg p-4 shadow-lg backdrop-blur-md"
     >
       <TabsList>
@@ -94,8 +105,8 @@ export default function SuperUserMode() {
                   : "/img/no-image.png"
               }
               alt=""
-              width={70}
-              height={70}
+              width={90}
+              height={90}
               className="object-contain"
             />
           </CardHeader>
@@ -163,6 +174,8 @@ export default function SuperUserMode() {
             </form>
           </CardContent>
         </Card>
+
+        {/* // UPDATE */}
       </TabsContent>
       <TabsContent value="update">
         <Card className="flex items-center justify-center gap-4 p-6">
@@ -171,13 +184,13 @@ export default function SuperUserMode() {
               <CardHeader>
                 <img
                   src={
-                    isValidUrl(productImage)
+                    productImage && isValidUrl(productImage)
                       ? productImage
-                      : "/img/no-image.png"
+                      : selectedProduct.imageUrl
                   }
                   alt=""
-                  width={70}
-                  height={70}
+                  width={90}
+                  height={90}
                   className="object-contain"
                 />
               </CardHeader>
