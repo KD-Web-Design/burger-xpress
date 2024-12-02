@@ -14,16 +14,55 @@ import { ScrollArea } from "./ui/scroll-area";
 import Loading from "@/app/loading";
 import { useCartStore, useSuperUserStore } from "@/store/store";
 import SuperUserMode from "./SuperUserMode";
+import { XIcon } from "lucide-react";
+import { Product } from "@/data/products";
 
 export default function Main() {
   const { addToCart } = useCartStore();
-  const { products } = useSuperUserStore();
+  const {
+    products,
+    deleteProduct,
+    isAdmin,
+    selectedCardId,
+    setSelectedCard,
+    prefillForm,
+  } = useSuperUserStore();
+
+  const handleCardSelect = (product: Product) => {
+    if (isAdmin) {
+      setSelectedCard(product.id);
+      prefillForm(product);
+    }
+  };
+
   return (
     <Suspense fallback={<Loading />}>
       <ScrollArea className="relative w-full">
         <main className=" grid w-full grid-cols-3 gap-8 p-12">
           {products.map((product) => (
-            <Card key={product.id} className="h-fit">
+            <Card
+              key={product.id}
+              className={`relative h-fit cursor-pointer transition-all duration-300 ease-in-out
+              ${isAdmin ? "hover:scale-105" : ""}
+              ${
+                isAdmin && selectedCardId === product.id
+                  ? "scale-105 border-2 border-primary shadow-lg"
+                  : ""
+              }`}
+              onClick={() => handleCardSelect(product)}
+            >
+              {isAdmin && (
+                <Button
+                  variant="destructive"
+                  className="absolute right-2 top-2 z-10 size-8 rounded-full bg-foreground p-0 transition-all duration-300 ease-in-out hover:scale-110"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deleteProduct(product.id);
+                  }}
+                >
+                  <XIcon />
+                </Button>
+              )}
               <CardHeader>
                 <CardTitle className="text-xl">{product.title}</CardTitle>
               </CardHeader>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useUserStore } from "@/store/store";
+import { useSuperUserStore, useUserStore } from "@/store/store";
 import { CircleUser } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +13,7 @@ export default function Navbar() {
   const username = useUserStore((state) => state.username);
   const logout = useUserStore((state) => state.logout);
   const { toast } = useToast();
-  const { isAdmin, toggleAdmin } = useUserStore();
+  const { isAdmin, toggleAdmin } = useSuperUserStore();
   return (
     <nav className="flex w-full items-center justify-between bg-red-950 p-4 text-white shadow-2xl">
       <Link href="#">

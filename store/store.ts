@@ -20,16 +20,28 @@ import { persist } from 'zustand/middleware';
     username: string;
     setUsername: (name: string) => void;
     logout: () => void;
-    isAdmin: boolean;
-    toggleAdmin: () => void;
+    
   }
 
   interface SuperUserState {
     isAdmin: boolean;
     toggleAdmin: () => void;
     products: Product[];
+    selectedCardId: number | null;
+    setSelectedCard: (id: number | null) => void;
     addProduct: (product: Omit<Product, "id">) => void;
     updateProduct: (id: number, updatedProduct: Partial<Product>) => void;
+    deleteProduct: (id: number) => void;
+    productName: string;
+    productImage: string;
+    productPrice: string;
+    inStock: boolean;
+    setProductName: (name: string) => void;
+    setProductImage: (url: string) => void;
+    setProductPrice: (price: string) => void;
+    setInStock: (stock: boolean) => void;
+    resetForm: () => void;
+    prefillForm: (product: Product) => void;
   }
   
   export const useUserStore = create<UserState>((set) => ({
@@ -38,8 +50,6 @@ import { persist } from 'zustand/middleware';
     logout: () => {
       localStorage.removeItem('username');
       set({ username: "" })},
-    isAdmin: false,
-    toggleAdmin: () => set((state) => ({ isAdmin: !state.isAdmin })),
   }));
 
   export const useSuperUserStore = create<SuperUserState>((set) => ({
@@ -60,6 +70,32 @@ import { persist } from 'zustand/middleware';
           ),
         }),
       ),
+      deleteProduct: (id) =>
+        set((state) => ({
+          products: state.products.filter((product) => product.id !== id),
+        })),
+      selectedCardId: null,
+      setSelectedCard: (id) => set({ selectedCardId: id }),
+      productName: "",
+      productImage: "",
+      productPrice: "",
+      inStock: true,
+      setProductName: (name) => set({ productName: name }),
+      setProductImage: (url) => set({ productImage: url }),
+      setProductPrice: (price) => set({ productPrice: Number(price).toFixed(2) }),
+      setInStock: (stock) => set({ inStock: stock }),
+      resetForm: () => set({ 
+        productName: "", 
+        productImage: "", 
+        productPrice: "", 
+        inStock: true
+      }),
+      prefillForm: (product) => set({
+        productName: product.title,
+        productImage: product.imageUrl,
+        productPrice: product.price.toFixed(2),
+        inStock: product.inStock,
+      }),
   }));
 
   export const useCartStore = create(persist<CartState>((set) => ({
