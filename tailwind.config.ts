@@ -63,6 +63,7 @@ export default {
   			rippling: 'rippling var(--duration) ease-out',
   			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
 			land: 'land 0.5s ease-out forwards', 
+			
   		},
   		keyframes: {
 			land: {
@@ -82,7 +83,8 @@ export default {
   				'100%': {
   					'offset-distance': '100%'
   				}
-  			}
+  			},
+			
   		}
   	}
   },

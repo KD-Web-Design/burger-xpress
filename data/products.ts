@@ -15,7 +15,7 @@ export interface Product {
     { id: 4, title: "Kingdom Burger", imageUrl: "/img/kingdom-burger.jpg", price: 7.99, inStock: true },
     { id: 5, title: "Coke 25Cl", imageUrl: "/img/coke.png", price: 3.0, inStock: true },
     { id: 6, title: "Pepsi 25Cl", imageUrl: "/img/pepsi.png", price: 3.0, inStock: true },
-    { id: 7, title: "Ice Tea 25Cl", imageUrl: "/img/icetea.png", price: 3.0, inStock: true },
+    { id: 7, title: "Ice Tea 25Cl", imageUrl: "/img/icetea.png", price: 3.0, inStock: false },
     { id: 8, title: "Sprite 25Cl", imageUrl: "/img/sprite.png", price: 3.0, inStock: true },
     { id: 9, title: "Fries", imageUrl: "/img/fries.png", price: 3.1, inStock: true },
     { id: 10, title: "Potatoes", imageUrl: "/img/potatoes.png", price: 3.3, inStock: true },

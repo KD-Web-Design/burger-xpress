@@ -1,13 +1,13 @@
 "use client";
 
 import { useSuperUserStore, useUserStore } from "@/store/store";
-import { CircleUser } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
 import { useToast } from "@/hooks/use-toast";
+import AnimatedUser from "./AnimatedUser";
 
 export default function Navbar() {
   const username = useUserStore((state) => state.username);
@@ -26,7 +26,9 @@ export default function Navbar() {
         />
       </Link>
       <div className="flex items-center space-x-2">
-        <Label htmlFor="super-user-mode">Super User Mode</Label>
+        <Label htmlFor="super-user-mode" className="font-semibold">
+          Super User Mode
+        </Label>
         <Switch
           id="super-user-mode"
           onCheckedChange={(checked) => {
@@ -49,7 +51,7 @@ export default function Navbar() {
             Logout
           </Link>
         </div>
-        <CircleUser size={40} />
+        <AnimatedUser />
       </div>
     </nav>
   );
