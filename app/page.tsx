@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/store/store";
 import { Card } from "@/components/ui/card";
@@ -12,6 +12,10 @@ const Welcome = () => {
   const [username, setUsername] = useState("");
   const setUserStoreUsername = useUserStore((state) => state.setUsername);
   const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch("/order");
+  }, [router]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
