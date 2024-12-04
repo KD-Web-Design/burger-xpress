@@ -2,6 +2,8 @@ import Aside from "@/components/Aside";
 import Main from "@/components/Main";
 import Navbar from "@/components/Navbar";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <main className="flex h-screen w-full items-center justify-center bg-gradient-to-b from-amber-500 to-red-900 px-12 py-6">
