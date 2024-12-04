@@ -82,9 +82,9 @@ export default function Main() {
                   <Image
                     src={product.imageUrl}
                     alt={product.title}
-                    layout="fill"
-                    objectFit="contain"
-                    className="rounded-md"
+                    fill
+                    sizes="100%"
+                    className="rounded-md object-contain"
                   />
                 </div>
               </CardContent>

@@ -69,7 +69,7 @@ export default function Aside() {
                     <Image
                       src={item.product.imageUrl}
                       alt={item.product.title}
-                      layout="fill"
+                      fill
                       objectFit="contain"
                       className="rounded-md"
                     />
