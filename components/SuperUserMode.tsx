@@ -217,7 +217,7 @@ export default function SuperUserMode() {
                       </Select>
                     </div>
                   </div>
-                  <Button type="submit" className="bg-red-950">
+                  <Button type="submit" variant="secondary">
                     Add new product
                   </Button>
                 </form>
@@ -305,7 +305,7 @@ export default function SuperUserMode() {
                     </div>
                   </div>
                   {selectedProduct ? (
-                    <Button type="submit" className="bg-red-950">
+                    <Button type="submit" variant="secondary">
                       Update product
                     </Button>
                   ) : (

@@ -52,7 +52,7 @@ export default {
   			}
   		},
   		backgroundImage: {
-  			welcome: 'url("/img/bg.jpg")'
+  			welcome: 'url("/img/bg.webp")'
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
@@ -62,14 +62,19 @@ export default {
   		animation: {
   			rippling: 'rippling var(--duration) ease-out',
   			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
-			land: 'land 0.5s ease-out forwards', 
-			
+  			land: 'land 0.5s ease-out forwards',
   		},
   		keyframes: {
-			land: {
-				'0%': { transform: 'translateY(-100%)', opacity: '0' },
-				'100%': { transform: 'translateY(0)', opacity: '1' },
-			},
+  			land: {
+  				'0%': {
+  					transform: 'translateY(-100%)',
+  					opacity: '0'
+  				},
+  				'100%': {
+  					transform: 'translateY(0)',
+  					opacity: '1'
+  				}
+  			},
   			rippling: {
   				'0%': {
   					opacity: '1'
@@ -84,7 +89,17 @@ export default {
   					'offset-distance': '100%'
   				}
   			},
-			
+  			shine: {
+  				'0%': {
+  					'background-position': '0% 0%'
+  				},
+  				'50%': {
+  					'background-position': '100% 100%'
+  				},
+  				to: {
+  					'background-position': '0% 0%'
+  				}
+  			}
   		}
   	}
   },

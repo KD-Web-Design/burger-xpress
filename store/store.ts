@@ -44,12 +44,15 @@ import { persist } from 'zustand/middleware';
     prefillForm: (product: Product) => void;
   }
   
-  export const useUserStore = create<UserState>((set) => ({
+  export const useUserStore = create(persist<UserState>((set) => ({
     username: "",
     setUsername: (name) => set({ username: name }),
     logout: () => {
       localStorage.removeItem('username');
+      document.cookie = 'username=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
       set({ username: "" })},
+  }),{
+    name: 'user-storage',
   }));
 
   export const useSuperUserStore = create(

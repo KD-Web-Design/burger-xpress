@@ -46,7 +46,7 @@ export default function Main() {
               ${isAdmin ? "hover:scale-105" : ""}
               ${
                 isAdmin && selectedCardId === product.id
-                  ? "scale-105 border-2 border-primary shadow-lg"
+                  ? "ring-2 ring-foreground"
                   : ""
               }`}
               onClick={() => handleCardSelect(product)}

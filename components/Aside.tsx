@@ -16,7 +16,7 @@ export default function Aside() {
 
   const handleRemoveItem = (productId: number) => {
     removeItemFromCart(productId);
-    setHoveredItemId(null); // Réinitialiser l'état hoveredItemId
+    setHoveredItemId(null);
   };
   return (
     <aside className="flex h-full w-1/3 flex-col border-t border-foreground bg-slate-50 shadow-2xl">
@@ -47,7 +47,7 @@ export default function Aside() {
             transition={{ type: "spring", stiffness: 120, damping: 10 }}
             className="py-4 text-center text-2xl text-slate-800"
           >
-            Your basket is empty. 😢
+            Your cart is empty. 😢
           </motion.h2>
         ) : (
           <>

@@ -13,10 +13,12 @@ const Welcome = () => {
   const setUserStoreUsername = useUserStore((state) => state.setUsername);
   const router = useRouter();
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (username.trim()) {
       setUserStoreUsername(username);
       localStorage.setItem("username", username);
+      document.cookie = `username=${username}; path=/`;
       router.push("/order");
     } else {
       alert("Please provide a valid name");
@@ -39,20 +41,22 @@ const Welcome = () => {
         </h1>
         <div className="z-10 h-0.5 w-full bg-foreground"></div>
 
-        <Input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Enter your name"
-          className="bg-white p-2"
-        />
-        <Button
-          className="w-full bg-foreground font-bold text-white hover:bg-white hover:text-foreground"
-          onClick={handleSubmit}
-          variant="secondary"
-        >
-          Get started
-        </Button>
+        <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
+          <Input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Enter your name"
+            className="bg-white p-2"
+          />
+          <Button
+            className="w-full bg-foreground font-bold text-white hover:bg-white hover:text-foreground"
+            type="submit"
+            variant="secondary"
+          >
+            Get started
+          </Button>
+        </form>
       </Card>
     </main>
   );
