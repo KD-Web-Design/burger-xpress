@@ -1,3 +1,5 @@
+🍔 Burger app for fast-food restaurants, state management with Zustand 🍔
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
